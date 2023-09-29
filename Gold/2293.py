@@ -1,5 +1,4 @@
 from sys import stdin as ss
-
 n, k = map(int, ss.readline().split())
 coin = [int(ss.readline()) for _ in range(n)]
 
