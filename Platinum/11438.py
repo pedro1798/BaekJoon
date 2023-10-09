@@ -34,7 +34,7 @@ def make_dp():
 make_dp()
 
     
-def lca(a: int, b: int):
+def lca(a: int, b: int) -> int:
     if d[a] > d[b]:  # a가 더 깊다면
         a, b = b, a
     dif = d[b] - d[a]
