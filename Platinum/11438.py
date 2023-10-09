@@ -1,61 +1,59 @@
+import sys
+sys.setrecursionlimit(1000000)
 from sys import stdin as ss
-import math
+LOG = 17
+
+n = int(ss.readline())  # 노드 수
+
+g = [[] for _ in range(n + 1)]  # 인접 리스트
+for _ in range(n - 1):  # 인접 리스트 초기화
+    a, b = map(int, ss.readline().split())
+    g[a].append(b);  g[b].append(a)
+    
+
+d = [0 for _ in range(n + 1)]  # 각 노드 깊이
+c = [False for _ in range(n + 1)]  # visited check
+
+dp = [[0] * LOG for u in range(n + 1)]  # dp[u][k]
 
 
-def dfs(root: int, visited: list, adj_list: list, dp: list) -> int:
-    if not visited[root]:  # visited False면
-        visited[root] = True
-        for child in adj_list[root]:  # root의 자식 노드들
-            if not visited[child]:
-                dp[child][0] = root
-                depth[child] = depth[root] + 1
-                dfs(child, visited, adj_list, dp)
+def dfs(root: int):
+    c[root] = True
+    for child in g[root]:
+        if not c[child]:  # child 방문 안했으면
+            d[child] = d[root] + 1  # child depth 초기화
+            dp[child][0] = root  # dp 부모 초기화
+            dfs(child)
 
-                
-def lca(n: int, m: int, dp: list, depth: list) -> int:  # longest common ancestor
-    if depth[n] > depth[m]:  # n이 높은 수, m이 깊은 수
-        n, m = m, n
-    diff = depth[m] - depth[n]
+dfs(1)
+def make_dp():
+    for k in range(LOG - 1):
+        for u in range(1, n + 1):
+            dp[u][k + 1] = dp[dp[u][k]][k]
+            
+make_dp()
+
+    
+def lca(a: int, b: int):
+    if d[a] > d[b]:  # a가 더 깊다면
+        a, b = b, a
+    dif = d[b] - d[a]
     k = 0
-    while diff:
-        if diff & 1:
-            m = dp[m][k]
-        diff >>= 1
+    while dif:
+        if dif & 1:
+            b = dp[b][k]
+        dif >>= 1
         k += 1
-    if n == m:
-        return n
-    while dp[n][0] != dp[m][0]:  # 부모 노드가 다르면
-        n = dp[n][0]; m = dp[m][0] 
+    if a == b:
+        return a
     
-    return dp[n][0]
+    for i in range(LOG - 1, -1, -1):
+        if dp[a][i] != dp[b][i]:
+            a = dp[a][i]; b = dp[b][i]
+    return dp[a][0]
 
-N = int(ss.readline())  # 노드 1~N
-adj_list = [list() for i in range(N + 1)]  # 인접 리스트
-depth = [0 for i in range(N + 1)]  # 깊이 array
 
-    
-for i in range(N - 1):  # 인접 리스트로 트리 초기화
-    n, m = map(int, ss.readline().split())
-    adj_list[min(n, m)].append(max(n, m))
-
-visited = [False for _ in range(N + 1)]
-dp = [[0] * 17 for nodes in range(N + 1)]
-dfs(1, visited,adj_list, dp)
-
-    
-M = int(ss.readline())  # LCA 찾을 노드쌍 개수
-
-nodes = []  # LCA 찾을 노드쌍 입력
-for i in range(M):
-    nodes.append(tuple(map(int, ss.readline().split())))
-
-# dp table 채움
-# math.ceil(log2(트리의 높이)) 만큼만 dp테이블 채우면 됨.
-max_height = math.ceil(math.log2(max(depth)))
-for k in range(max_height):
-    for node in range(1, N + 1):
-        dp[node][k + 1] = dp[dp[node][k]][k]
-        
-
-for n, m in nodes:
-    print(lca(n, m, dp, depth))
+m = int(ss.readline())
+for _ in range(m):
+    a, b = map(int, ss.readline().split())
+    print(lca(a, b))
