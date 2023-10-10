@@ -1,14 +1,15 @@
 from sys import stdin as ss
 
 T = int(ss.readline())
+
 for _ in range(T):
     n = int(ss.readline())
-    ar = []
+    arr = []
     for _ in range(n):
-        ar.append(ss.readline().rstrip())
-    ar.sort()
+        arr.append(ss.readline().rstrip())
+    arr.sort()
     flag = 'YES'
-    for i in range(len(ar) - 1):
-        if ar[i + 1][:len(ar[i])] == ar[i]:
+    for i in range(len(arr) - 1):
+        if arr[i + 1][:len(arr[i])] == arr[i]:
             flag = 'NO'
     print(flag)
