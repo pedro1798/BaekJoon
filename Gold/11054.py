@@ -1,4 +1,4 @@
-# LIS
+# Longest Bitonic Subsequence
 
 from sys import stdin as ss
 
