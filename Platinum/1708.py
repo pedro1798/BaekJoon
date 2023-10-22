@@ -12,8 +12,8 @@ class Problem:
             x, y = map(int, ss.readline().split())
             self.points.append((x, y))
         
-    def get_inclination(self, pivot: tuple, point: tuple) -> list:
-        return math.inf if pivot[0] == point[0] else ((point[1] - pivot[1]) / (point[0] - pivot[0]))
+    def get_angle(self, pivot: tuple, point: tuple) -> list:
+        return math.atan2(point[1] - pivot[1], point[0] - pivot[0])
     
     def ccw(self, a: tuple, b: tuple, c: tuple):
         ab = (b[0] - a[0], b[1] - a[1])
@@ -25,7 +25,7 @@ class Problem:
         pivot = min(points, key=lambda x: (x[0], x[1]))
         points.remove(pivot)
         
-        sorted_points = sorted(points, key=lambda x: (self.get_inclination(pivot, x), x[0], x[1]))
+        sorted_points = sorted(points, key=lambda x: (self.get_angle(pivot, x), x[0], x[1]))
 
         convex_hull = [pivot, sorted_points.pop(0)]
         
