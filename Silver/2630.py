@@ -33,8 +33,8 @@ def is_paper(matrix: list):
         return "white"
     elif not result:
         return "black"
-    else:
-        return False
+        
+    return False
     
 divide_and_conquer(matrix)
 for i in papers:
