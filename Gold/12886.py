@@ -16,7 +16,7 @@ def bfs(a, b, c):
     
     while q:
         a, b = q.popleft(); c = sum_of_rocks - a - b
-        if a == b == c:  # 돌 개수의 합이 3일 때 a == b == c 라면:
+        if a == b == c:  # 돌 개수의 합이 3의 배수일 때 a == b == c 라면:
             return 1
             
         for x, y in (a, b), (a, c), (b, c):
