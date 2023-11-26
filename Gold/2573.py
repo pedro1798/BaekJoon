@@ -7,7 +7,7 @@ n, m = map(int, input().split())
 iceberg = list(list(map(int, input().split())) for _ in range(n))
 directions = ((1, 0), (0, 1), (-1, 0), (0, -1))
 
-def bfs(visited: list, i: int, j: int):  # iceberg를 매년 업데이트한다.
+def bfs(visited: list, i: int, j: int):
     q = deque()
     q.append((i, j))
     counts = list()  # 주변 바다의 개수
@@ -29,7 +29,7 @@ def bfs(visited: list, i: int, j: int):  # iceberg를 매년 업데이트한다.
     
     return 1
     
-def num_of_chunks_in_next_year():  # 1년 후 chunk 개수를 센다.
+def num_of_chunks_in_next_year():  # bfs를 사용해 iceberg를 1년 후로 업데이트 한다.
     visited = [0 for _ in range(n)]
     num_of_chunks = 0
     for i in range(n):
@@ -47,7 +47,7 @@ def is_zero():  # 빙산이 다 녹았는지 확인한다.
 def count_years():
     years = 0
     while "next_year":
-        chunks = num_of_chunks_in_next_year()
+        chunks = num_of_chunks_in_next_year()  # 1년 후 iceberg의 chunk 개수를 리턴한다. iceberg는 이 라인에서 업데이트된다.
         if chunks > 1:  # 빙하가 갈라졌다면
             return years
         else:  # 빙하가 갈라지지 않았다면
