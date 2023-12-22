@@ -2,7 +2,7 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
-def bfs():
+def is_interleaving():
     rows = len(s1); cols = len(s2)
     
     visited = [[0] * (cols) for _ in range(rows)]
@@ -27,4 +27,5 @@ if __name__ == "__main__":
     delta = ((1, 0), (0, 1))
     for i in range(1, int(input()) + 1):
         s1, s2, s3 = map(lambda x: [False] + list(x), input().rstrip().split())  # False is margin
-        print(f"Data set {i}: {'yes' if bfs() else 'no'}")
+        print(f"Data set {i}: {'yes' if is_interleaving() else 'no'}")
+        
