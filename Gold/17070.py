@@ -11,7 +11,7 @@ def is_line(x1, y1, x2, y2):
     return 2  # diagonal
 
 def is_ok(x1, y1, x2, y2):
-    if is_line(x1, y1, x2, y2) != 2:
+    if y1 == y2 or x1 == x2:
         if grid[x2][y2] == 1:
             return False
     else:
