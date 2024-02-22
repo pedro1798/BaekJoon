@@ -39,14 +39,5 @@ if __name__ == "__main__":
                     # 사이클이 없다면 count에 1을 더한다. 사이클이 있다면 무시한다.
                     count += 1
                 cycle = False  # for문 안에서 반복하므로 cycle 초기화
-                
-        if count == 0:
-            print(f"Case {TC}: No trees.")
-        elif count == 1:
-            print(f"Case {TC}: There is one tree.")
-        else:
-            print(f"Case {TC}: A forest of {count} trees.")
-            
-                    
-                    
-                    
+
+        print(f"Case {TC}:", f"No trees." if count == 0 else (f"There is one tree." if count == 1 else f"A forest of {count} trees."))                  
